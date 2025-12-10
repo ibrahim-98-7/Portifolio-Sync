@@ -4,13 +4,16 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import joblib
 import base64
+import os
 
 # title 
 st.title("Customers Churn Prediction")
 st.write("this app uses a saved Naive Bayes model to predict customers churn")
 
 # Dataset loading
-churn_df = pd.read_excel("churn_dataset.xlsx")
+script_directory = os.path.dirname(os.path.abspath(__file__))
+dataset_path = os.path.join(script_directory, 'churn_dataset.xlsx')
+churn_df = pd.read_excel(dataset_path)
 st.write(churn_df.head())
 
 # loading Gaussian Naive Base 
