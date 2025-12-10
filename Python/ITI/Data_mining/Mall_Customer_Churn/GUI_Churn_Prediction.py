@@ -86,4 +86,4 @@ def set_background(png_file):
 image_path = os.path.join(script_directory, 'abstract-infographic-visualization-financial-chart-600nw-2428087473.webp')
 
 # Load the image
-st.image(image_path)
+set_background(image_path)
