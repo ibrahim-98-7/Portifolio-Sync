@@ -17,7 +17,7 @@ churn_df = pd.read_excel(dataset_path)
 st.write(churn_df.head())
 
 # loading Gaussian Naive Base 
-model = joblib.load('Customer Churn prediction.pk1')
+model = joblib.load('Customer_Churn_prediction.pk1')
 
 churn_labels = {0:"No",1:"Yes"}
 
