@@ -82,6 +82,8 @@ def set_background(png_file):
     '''
     st.markdown(page_bg_img, unsafe_allow_html=True)
 
-# Example usage:
-# Make sure 'your_image.png' is in the same directory as your Streamlit app file
-set_background("abstract-infographic-visualization-financial-chart-600nw-2428087473.webp") 
+# Build the path to the image using the script_directory variable
+image_path = os.path.join(script_directory, 'abstract-infographic-visualization-financial-chart-600nw-2428087473.webp')
+
+# Load the image
+st.image(image_path)
