@@ -1,0 +1,4 @@
+Alex the analyst project was made with the alex the analyst bootcamp on youtube 
+the project begin from the data loading till delivering a dashboard
+
+as for ITI Sales Dashboard was created during Power BI development track also made out of the data loaded from AdventureWorks Database
