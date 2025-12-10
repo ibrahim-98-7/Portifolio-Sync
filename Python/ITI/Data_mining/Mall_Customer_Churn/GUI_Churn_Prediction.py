@@ -17,7 +17,11 @@ churn_df = pd.read_excel(dataset_path)
 st.write(churn_df.head())
 
 # loading Gaussian Naive Base 
-model = joblib.load("Customer_Churn_prediction.pk1")
+# Build the path to the model file using the script_directory variable
+model_path = os.path.join(script_directory, 'Customer_Churn_prediction.pk1')
+
+# Load the model
+model = joblib.load(model_path)
 
 churn_labels = {0:"No",1:"Yes"}
 
