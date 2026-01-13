@@ -9,11 +9,10 @@ import base64
 # PAGE CONFIGURATION
 
 st.set_page_config(
-    page_title="COVID-19 Global Dashboard",
+    page_title="COVID-19 Dashboard",
     page_icon="🌍",
     layout="wide"
 )
-
 
 # BACKGROUND IMAGE SETUP
 
@@ -83,6 +82,17 @@ World_Analysis, Grouped = st.tabs([
     "📅 Covid Grouped Analysis"
 ])
 
+def new_func(world_data, metric):
+    df_metric = (
+            world_data.groupby('Country/Region')[metric]
+            .sum()
+            .reset_index()
+            .sort_values(by=metric, ascending=False)
+            .head(10)
+        )
+    
+    return df_metric
+
 with World_Analysis:
 
     @st.cache_data
@@ -119,7 +129,7 @@ with World_Analysis:
 
     # --- Data Cleaning ---
     world_CP = world_data.copy()
-    world_CP = world_CP.select_dtypes(include=['number'])  # keep numeric only
+    world_CP = world_CP.select_dtypes(include=['number'])
 
     # --- Compute Correlation ---
     Correlations = world_CP.corr()
@@ -145,6 +155,7 @@ with World_Analysis:
         margin=dict(l=100, r=100, t=80, b=100),
         paper_bgcolor='rgba(0,0,0,0)',
         plot_bgcolor='rgba(0,0,0,0)',
+
     )
 
     st.plotly_chart(fig_corr, use_container_width=True)
@@ -156,23 +167,15 @@ with World_Analysis:
         - **Negative correlations (blue)** mean that as one increases, the other decreases.
         - Strong correlations (> 0.7 or < -0.7) suggest close relationships worth further analysis.
         """)
-
-
-    # -------------------------
+    
     # 2️⃣ Top 10 Countries by Metric
-    # -------------------------
+    
     st.markdown("<h2 style='text-align:center; color:white;'>📊 Top 10 Countries by Metrics</h2>", unsafe_allow_html=True)
 
     metrics = ['TotalTests', 'TotalCases', 'TotalDeaths', 'TotalRecovered']
 
     for metric in metrics:
-        df_metric = (
-            world_data.groupby('Country/Region')[metric]
-            .sum()
-            .reset_index()
-            .sort_values(by=metric, ascending=False)
-            .head(10)
-        )
+        df_metric = new_func(world_data, metric)
 
         fig_bar = px.bar(
             df_metric,
