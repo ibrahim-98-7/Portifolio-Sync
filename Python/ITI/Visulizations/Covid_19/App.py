@@ -47,14 +47,13 @@ st.set_page_config(page_title="World COVID-19 Data Analysis",page_icon="🌍",la
 # File naming Conventing and file Path Handling
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
-page_Backgound_Image = os.path.join(current_dir, "Red-and-Blue-COVID-19-Virus.jpg")
 
 worldometer_csv_path = os.path.join(current_dir, "worldometer_data.csv")
 grouped_csv_path = os.path.join(current_dir, "full_grouped.csv")
 model_path = os.path.join(current_dir, "Covid_19_Grouped_Logistic_Regression.pkl")
 
 # Page Background Configuration 
-page_Backgound_Image = "Red-and-Blue-COVID-19-Virus.jpg"
+page_Backgound_Image = os.path.join(current_dir, "Red-and-Blue-COVID-19-Virus.jpg")
 
 name,extension = os.path.splitext(page_Backgound_Image)
 
