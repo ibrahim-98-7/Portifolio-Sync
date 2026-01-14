@@ -1,9 +1,8 @@
-streamlit
-numpy
 pandas
-joblib
-matplotlib
-openpyxl
-scikit-learn
+numpy
+streamlit
 plotly
-google.generativeai
+plotly-express
+scikit-learn
+joblib
+google-generativeai
