@@ -44,11 +44,20 @@ def AI_Insights(df_markdown, context="General"):
 # Page configuration
 st.set_page_config(page_title="World COVID-19 Data Analysis",page_icon="🌍",layout="wide")
 
+# File naming Conventing and file Path Handling
+current_dir = os.path.dirname(os.path.abspath(__file__))
+
+page_Backgound_Image = os.path.join(current_dir, "Red-and-Blue-COVID-19-Virus.jpg")
+
+worldometer_csv_path = os.path.join(current_dir, "worldometer_data.csv")
+grouped_csv_path = os.path.join(current_dir, "full_grouped.csv")
+model_path = os.path.join(current_dir, "Covid_19_Grouped_Logistic_Regression.pkl")
+
+# Page Background Configuration 
 page_Backgound_Image = "Red-and-Blue-COVID-19-Virus.jpg"
 
 name,extension = os.path.splitext(page_Backgound_Image)
 
-# Page Background Configuration 
 def get_image_of_bin_file(bin_file):
     try:
         with open(bin_file,"rb") as file:
@@ -119,12 +128,9 @@ def loading_csv(file):
     df = pd.read_csv(file)
     return df
 
-# Loading the worldometer_data csv
-worldometer_data = "worldometer_data.csv"
-
 @st.cache_data
 def loading_worldometer_data():
-    world_data = loading_csv(worldometer_data)
+    world_data = loading_csv(worldometer_csv_path)
     float_cols = world_data.select_dtypes(include=['float64']).columns
     float_cols = float_cols.drop(['Tests/1M pop','Deaths/1M pop','Tot Cases/1M pop'])
     for col in float_cols:
@@ -148,7 +154,7 @@ Grouped = "full_grouped.csv"
 
 @st.cache_data
 def loading_full_Grouped_data():
-    Full_Grouped = loading_csv(Grouped)
+    Full_Grouped = loading_csv(grouped_csv_path)
 
     Full_Grouped['Date'] = pd.to_datetime(Full_Grouped['Date'],format='mixed')
     Full_Grouped['Month'] = Full_Grouped['Date'].dt.month_name()
@@ -537,7 +543,7 @@ else:
 
     Case_Fetality_Rate = (sum(filtered_df['Deaths']) / sum(filtered_df['Confirmed'])) * 100
 
-    model = joblib.load("Covid_19_Grouped_Logistic_Regression.pkl")
+    model = joblib.load(model_path)
 
     features = filtered_df[['Confirmed', 'Deaths', 'Recovered']]
     filtered_df['Severe'] = (filtered_df['Deaths'] / filtered_df['Confirmed']) > 0.05
