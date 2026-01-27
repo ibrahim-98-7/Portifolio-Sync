@@ -11,7 +11,7 @@ import google.generativeai as genai
 
 # Giminai Config
 Api_Key = genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
-AI_model = genai.GenerativeModel("gemini-3-flash-preview") 
+AI_model = genai.GenerativeModel("gemini-3-flash-preview")
 
 @st.cache_data
 def AI_Insights(df_markdown, context="General"):
