@@ -62,7 +62,7 @@ def get_image_of_bin_file(bin_file):
             data = file.read() 
         return base64.b64encode(data).decode()
     except ValueError as e:
-        return "File Doesn't Exist{e}"
+        return f"File Doesn't Exist{e}"
 
 def set_background(png_file):
     png_st = get_image_of_bin_file(png_file)
